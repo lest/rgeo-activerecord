@@ -112,6 +112,8 @@ module RGeo
               (':name => ' + index_.name.inspect),
             ]
             statement_parts_ << ':unique => true' if index_.unique
+            statement_parts_ << ':where => ' + index_.where.inspect if index_.where
+            statement_parts_ << ':using => ' + index_.using.inspect if index_.using
             statement_parts_ << ':spatial => true' if index_.respond_to?(:spatial) && index_.spatial
             index_lengths_ = (index_.lengths || []).compact
             statement_parts_ << (':length => ' + ::Hash[*index_.columns.zip(index_.lengths).flatten].inspect) unless index_lengths_.empty?
